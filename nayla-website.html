@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nayla — STEAM for Aswan's Next Builders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --nile:#0E2A3D;
+    --nile-deep:#081B27;
+    --sand:#D9A86C;
+    --terracotta:#C75D4D;
+    --cream:#F6EFE4;
+    --ink:#16201F;
+    --leaf:#5C7A4F;
+    --line:rgba(246,239,228,0.14);
+    --max:1180px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Manrope', sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
+  :focus-visible{outline:3px solid var(--terracotta); outline-offset:3px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(8,27,39,0.0);
+    transition:background .35s ease, box-shadow .35s ease, padding .35s ease;
+    padding:22px 0;
+  }
+  nav.scrolled{
+    background:rgba(8,27,39,0.92);
+    backdrop-filter:blur(10px);
+    box-shadow:0 8px 30px rgba(0,0,0,.18);
+    padding:14px 0;
+  }
+  .nav-row{display:flex; align-items:center; justify-content:space-between;}
+  .logo{
+    font-family:'Fraunces', serif; font-weight:700; font-size:1.35rem;
+    color:var(--cream); display:flex; align-items:center; gap:10px;
+  }
+  .logo .dot{width:9px; height:9px; border-radius:50%; background:var(--terracotta); display:inline-block;}
+  .nav-links{display:flex; gap:34px; font-size:.92rem; font-weight:600;}
+  .nav-links a{color:var(--cream); opacity:.82; transition:opacity .2s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{
+    background:var(--terracotta); color:#fff !important; padding:10px 20px;
+    border-radius:999px; font-weight:700; font-size:.88rem; opacity:1 !important;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .nav-cta:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(199,93,77,.4);}
+  .nav-toggle{display:none; background:none; border:0; color:var(--cream); font-size:1.6rem; cursor:pointer;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; background:var(--nile); color:var(--cream);
+    padding:170px 0 120px; overflow:hidden;
+  }
+  .hero-pattern{
+    position:absolute; inset:0; opacity:.5; pointer-events:none;
+  }
+  .hero-grid{position:relative; z-index:2; display:grid; grid-template-columns:1.15fr .85fr; gap:50px; align-items:center;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:.78rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--sand); margin-bottom:26px;
+  }
+  .eyebrow::before{content:''; width:28px; height:1px; background:var(--sand);}
+  .hero h1{
+    font-size:clamp(2.6rem, 5vw, 4.4rem); line-height:1.04; color:#fff;
+    margin-bottom:26px;
+  }
+  .hero h1 em{font-style:italic; color:var(--sand); font-weight:500;}
+  .hero p.lead{
+    font-size:1.18rem; color:rgba(246,239,228,.82); max-width:520px; margin-bottom:38px;
+  }
+  .hero-ctas{display:flex; gap:16px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--terracotta); color:#fff; padding:16px 30px; border-radius:999px;
+    font-weight:700; font-size:.95rem; display:inline-flex; align-items:center; gap:10px;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-primary:hover{transform:translateY(-3px); box-shadow:0 12px 26px rgba(199,93,77,.4);}
+  .btn-ghost{
+    border:1.5px solid rgba(246,239,228,.35); color:var(--cream); padding:16px 28px; border-radius:999px;
+    font-weight:700; font-size:.95rem; transition:border-color .2s, background .2s;
+  }
+  .btn-ghost:hover{border-color:var(--cream); background:rgba(246,239,228,.06);}
+
+  .hero-stat-card{
+    background:rgba(246,239,228,.06);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:34px;
+    position:relative; z-index:2;
+    backdrop-filter:blur(6px);
+  }
+  .hero-stat-card .big{
+    font-family:'Fraunces', serif; font-size:4rem; font-weight:700; color:var(--sand); line-height:1;
+  }
+  .hero-stat-card .cap{font-size:.95rem; color:rgba(246,239,228,.78); margin-top:8px; font-weight:600;}
+  .hero-stat-card .sub-row{display:flex; gap:22px; margin-top:26px; border-top:1px solid var(--line); padding-top:22px;}
+  .hero-stat-card .sub-row div{flex:1;}
+  .hero-stat-card .sub-row .n{font-family:'Fraunces', serif; font-size:1.7rem; font-weight:600; color:#fff;}
+  .hero-stat-card .sub-row .l{font-size:.78rem; color:rgba(246,239,228,.65); margin-top:2px;}
+
+  /* ---------- MARQUEE / FOR ALL STRIP ---------- */
+  .strip{
+    background:var(--ink); color:var(--cream); padding:16px 0; overflow:hidden;
+    white-space:nowrap; position:relative;
+  }
+  .strip-track{display:inline-flex; gap:48px; animation:scroll 28s linear infinite;}
+  .strip span{font-weight:700; font-size:.85rem; letter-spacing:.06em; text-transform:uppercase; opacity:.85;}
+  .strip span.accent{color:var(--sand);}
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{padding:110px 0;}
+  .section-head{max-width:680px; margin-bottom:64px;}
+  .section-head .eyebrow{color:var(--terracotta);}
+  .section-head .eyebrow::before{background:var(--terracotta);}
+  .section-head h2{font-size:clamp(2rem, 3.4vw, 2.9rem); color:var(--nile);}
+  .section-head p{color:#5a5249; font-size:1.05rem; margin-top:16px; max-width:560px;}
+
+  /* ---------- MISSION ---------- */
+  .mission{background:var(--cream);}
+  .mission-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:36px;}
+  .mission-card{
+    background:#fff; border-radius:18px; padding:34px 30px;
+    border:1px solid #E7DDC9; transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .mission-card:hover{transform:translateY(-6px); box-shadow:0 18px 40px rgba(14,42,61,.1);}
+  .mission-card .ic{
+    width:48px; height:48px; border-radius:12px; background:var(--nile);
+    display:flex; align-items:center; justify-content:center; margin-bottom:20px;
+  }
+  .mission-card h3{font-size:1.25rem; color:var(--nile); margin-bottom:10px;}
+  .mission-card p{color:#5a5249; font-size:.96rem;}
+
+  /* ---------- PROGRAMS ---------- */
+  .programs{background:var(--nile-deep); color:var(--cream); position:relative;}
+  .programs .section-head .eyebrow{color:var(--sand);}
+  .programs .section-head .eyebrow::before{background:var(--sand);}
+  .programs .section-head h2{color:#fff;}
+  .programs .section-head p{color:rgba(246,239,228,.75);}
+  .program-list{display:flex; flex-direction:column; gap:0;}
+  .program-row{
+    display:grid; grid-template-columns:64px 1fr auto; gap:32px; align-items:start;
+    padding:42px 0; border-top:1px solid var(--line);
+  }
+  .program-row:last-child{border-bottom:1px solid var(--line);}
+  .program-num{font-family:'Fraunces', serif; font-size:1.6rem; color:var(--sand); font-weight:600; padding-top:4px;}
+  .program-body h3{font-size:1.7rem; color:#fff; margin-bottom:10px;}
+  .program-body .tagline{color:var(--sand); font-weight:700; font-size:.85rem; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;}
+  .program-body p{color:rgba(246,239,228,.78); max-width:560px; font-size:1rem;}
+  .program-meta{
+    display:flex; flex-direction:column; gap:10px; min-width:170px; text-align:right;
+  }
+  .program-meta .tag{
+    background:rgba(246,239,228,.08); border:1px solid var(--line); border-radius:999px;
+    padding:7px 14px; font-size:.78rem; font-weight:700; color:var(--cream); align-self:flex-end;
+  }
+  .program-grads{font-family:'Fraunces', serif; font-size:1.4rem; color:var(--sand); font-weight:700;}
+  .program-grads .lbl{display:block; font-family:'Manrope'; font-size:.7rem; color:rgba(246,239,228,.6); font-weight:600; letter-spacing:.05em; text-transform:uppercase;}
+  .apply-pill{
+    align-self:flex-end; padding:9px 18px; border-radius:999px; font-size:.82rem; font-weight:700;
+    margin-top:4px; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .apply-pill.open{background:var(--terracotta); color:#fff;}
+  .apply-pill.open:hover{transform:translateY(-2px); box-shadow:0 8px 18px rgba(199,93,77,.4);}
+  .apply-pill.closed{
+    background:rgba(246,239,228,.06); border:1px solid var(--line); color:rgba(246,239,228,.55);
+    cursor:default;
+  }
+
+  /* ---------- IMPACT NUMBERS ---------- */
+  .impact{background:var(--cream);}
+  .impact-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0; border-top:1px solid #E7DDC9; border-bottom:1px solid #E7DDC9;}
+  .impact-cell{padding:46px 30px; border-right:1px solid #E7DDC9; text-align:center;}
+  .impact-cell:last-child{border-right:none;}
+  .impact-cell .num{font-family:'Fraunces', serif; font-size:3rem; font-weight:700; color:var(--nile); line-height:1;}
+  .impact-cell .lbl{font-size:.85rem; color:#5a5249; margin-top:10px; font-weight:600;}
+
+  /* ---------- TEAM / WHO IT'S FOR ---------- */
+  .forall{background:#fff;}
+  .forall-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
+  .forall-art{
+    aspect-ratio:1/1; border-radius:24px; background:var(--sand);
+    position:relative; overflow:hidden;
+  }
+  .forall-copy h2{font-size:clamp(1.9rem,3vw,2.6rem); color:var(--nile); margin-bottom:20px;}
+  .forall-copy p{color:#5a5249; font-size:1.05rem; margin-bottom:18px;}
+  .forall-copy .note{
+    background:var(--cream); border-left:3px solid var(--terracotta); padding:16px 20px;
+    font-size:.92rem; color:var(--ink); border-radius:0 10px 10px 0; margin-top:24px;
+  }
+
+  /* ---------- FOUNDERS ---------- */
+  .founders{background:var(--cream);}
+  .founders-grid{display:grid; grid-template-columns:1fr 1fr; gap:36px;}
+  .founder-card{
+    background:#fff; border:1px solid #E7DDC9; border-radius:20px; padding:36px;
+    display:flex; gap:24px; align-items:flex-start; transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .founder-card:hover{transform:translateY(-5px); box-shadow:0 18px 40px rgba(14,42,61,.1);}
+  .founder-photo{
+    width:96px; height:96px; border-radius:50%; flex-shrink:0; overflow:hidden;
+    background:var(--nile); display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif; font-size:1.7rem; font-weight:700; color:var(--sand);
+    border:3px solid var(--sand);
+  }
+  .founder-photo img{width:100%; height:100%; object-fit:cover;}
+  .founder-info h3{font-size:1.25rem; color:var(--nile); margin-bottom:2px;}
+  .founder-role{
+    display:inline-block; font-size:.75rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--terracotta); margin-bottom:12px;
+  }
+  .founder-info p{font-size:.94rem; color:#5a5249;}
+  .founders-note{
+    margin-top:30px; font-size:.88rem; color:#8a8174; text-align:center;
+  }
+
+
+  .cta{
+    background:var(--terracotta); color:#fff; text-align:center; padding:100px 0;
+    position:relative; overflow:hidden;
+  }
+  .cta h2{font-size:clamp(2rem,4vw,3.2rem); color:#fff; margin-bottom:18px;}
+  .cta p{color:rgba(255,255,255,.88); font-size:1.1rem; max-width:560px; margin:0 auto 36px;}
+  .cta .btn-primary{background:var(--nile);}
+  .cta .btn-primary:hover{box-shadow:0 12px 26px rgba(14,42,61,.4);}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--nile-deep); color:rgba(246,239,228,.7); padding:60px 0 30px;}
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; padding-bottom:40px; border-bottom:1px solid var(--line);}
+  .foot-logo{font-family:'Fraunces', serif; font-weight:700; font-size:1.3rem; color:#fff; margin-bottom:14px;}
+  .foot-grid p{font-size:.92rem; max-width:320px;}
+  .foot-col h4{color:#fff; font-size:.85rem; letter-spacing:.05em; text-transform:uppercase; margin-bottom:16px;}
+  .foot-col a{display:block; font-size:.92rem; margin-bottom:10px; opacity:.82; transition:opacity .2s;}
+  .foot-col a:hover{opacity:1;}
+  .foot-bottom{display:flex; justify-content:space-between; padding-top:26px; font-size:.82rem; flex-wrap:wrap; gap:10px;}
+
+  /* ---------- REVEAL ANIM ---------- */
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{transition:none; opacity:1; transform:none;}
+    .strip-track{animation:none;}
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr; gap:50px;}
+    .mission-grid{grid-template-columns:1fr;}
+    .impact-grid{grid-template-columns:repeat(2,1fr);}
+    .impact-cell:nth-child(2){border-right:none;}
+    .forall-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr; gap:30px;}
+    .program-row{grid-template-columns:1fr; gap:14px;}
+    .program-meta{flex-direction:row; text-align:left; align-items:center; flex-wrap:wrap;}
+    .program-meta .tag, .program-grads, .apply-pill{align-self:auto;}
+    .founders-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:760px){
+    .nav-links{display:none; position:absolute; top:100%; left:0; right:0; background:var(--nile-deep); flex-direction:column; padding:20px 28px; gap:18px;}
+    .nav-links.open{display:flex;}
+    .nav-toggle{display:block;}
+    .nav-cta{margin-top:6px; text-align:center;}
+    section{padding:72px 0;}
+    .hero{padding:140px 0 80px;}
+    .impact-grid{grid-template-columns:1fr 1fr;}
+    .impact-cell{padding:30px 16px;}
+    .impact-cell .num{font-size:2.2rem;}
+    .founder-card{flex-direction:column; align-items:center; text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap nav-row">
+    <a href="#top" class="logo"><span class="dot"></span>Nayla</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">&#9776;</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#programs">Programs</a>
+      <a href="#impact">Impact</a>
+      <a href="#founders">Founders</a>
+      <a href="#join" class="nav-cta">Get involved</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <svg class="hero-pattern" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <pattern id="weave" width="120" height="120" patternUnits="userSpaceOnUse">
+        <path d="M0 60 L60 0 L120 60 L60 120 Z" fill="none" stroke="#D9A86C" stroke-width="1" opacity="0.35"/>
+        <circle cx="60" cy="60" r="4" fill="#D9A86C" opacity="0.5"/>
+        <path d="M0 0 L120 120" stroke="#D9A86C" stroke-width="0.5" opacity="0.15"/>
+        <path d="M120 0 L0 120" stroke="#D9A86C" stroke-width="0.5" opacity="0.15"/>
+      </pattern>
+      <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0E2A3D" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#0E2A3D" stop-opacity="1"/>
+      </linearGradient>
+    </defs>
+    <rect x="600" y="0" width="600" height="800" fill="url(#weave)"/>
+    <rect width="1200" height="800" fill="url(#fade)"/>
+  </svg>
+
+  <div class="wrap hero-grid">
+    <div class="reveal in">
+      <div class="eyebrow">Aswan &amp; Upper Egypt · STEAM for everyone</div>
+      <h1>Building Upper Egypt's next generation of <em>makers</em>, <br>one program at a time.</h1>
+      <p class="lead">Nayla designs hands-on STEAM programs — coding, problem-solving, and real projects — for young people in Aswan ready to build something that matters.</p>
+      <div class="hero-ctas">
+        <a href="#programs" class="btn-primary">See our programs →</a>
+        <a href="https://forms.gle/QAxVvp9V18nVXV9L6" target="_blank" rel="noopener" class="btn-ghost">Join the next cohort</a>
+      </div>
+    </div>
+    <div class="hero-stat-card reveal in">
+      <div class="big" id="gradCount">75</div>
+      <div class="cap">Graduates across all Nayla programs</div>
+      <div class="sub-row">
+        <div>
+          <div class="n">2</div>
+          <div class="l">Programs run</div>
+        </div>
+        <div>
+          <div class="n">12–19</div>
+          <div class="l">Ages welcomed</div>
+        </div>
+        <div>
+          <div class="n">Aswan</div>
+          <div class="l">Home base</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="strip-track">
+    <span>OPEN TO EVERY STUDENT</span>
+    <span class="accent">★</span>
+    <span>NO PRIOR EXPERIENCE NEEDED</span>
+    <span class="accent">★</span>
+    <span>BUILT IN ASWAN</span>
+    <span class="accent">★</span>
+    <span>OPEN TO EVERY STUDENT</span>
+    <span class="accent">★</span>
+    <span>NO PRIOR EXPERIENCE NEEDED</span>
+    <span class="accent">★</span>
+    <span>BUILT IN ASWAN</span>
+    <span class="accent">★</span>
+  </div>
+</div>
+
+<section class="mission">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Why Nayla exists</div>
+      <h2>STEAM education shouldn't depend on where you live.</h2>
+      <p>We bring real, hands-on science, tech, and problem-solving programs to students in Aswan — taught by people from here, built for here.</p>
+    </div>
+    <div class="mission-grid">
+      <div class="mission-card reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#D9A86C" stroke-width="1.8" stroke-linejoin="round"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="#D9A86C" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <h3>Hands-on, not theoretical</h3>
+        <p>Every program ends in something built — a project, a piece of code, a presented idea — not just a certificate.</p>
+      </div>
+      <div class="mission-card reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#D9A86C" stroke-width="1.8"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#D9A86C" stroke-width="1.8"/></svg></div>
+        <h3>Taught by Aswan's own</h3>
+        <p>Our facilitators are local engineers and educators who understand the language, the context, and the students.</p>
+      </div>
+      <div class="mission-card reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-8-4.5-8-11a8 8 0 0116 0c0 6.5-8 11-8 11z" stroke="#D9A86C" stroke-width="1.8"/><circle cx="12" cy="10" r="2.5" stroke="#D9A86C" stroke-width="1.8"/></svg></div>
+        <h3>Open to every student</h3>
+        <p>Nayla is for any student in Aswan and Upper Egypt aged 12–19 with curiosity and the will to show up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="programs" id="programs">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Our programs</div>
+      <h2>Two programs running. More on the way.</h2>
+      <p>Each Nayla program is designed from scratch — slide decks, facilitator guides, and a spoken script tailored to our students.</p>
+    </div>
+    <div class="program-list">
+      <div class="program-row reveal">
+        <div class="program-num">01</div>
+        <div class="program-body">
+          <div class="tagline">Foundations program</div>
+          <h3>What is STEAM?</h3>
+          <p>An introductory program that opens the door to science, technology, engineering, art, and math — built for students with zero prior exposure. Ended with a graduation day at Farial Garden.</p>
+        </div>
+        <div class="program-meta">
+          <span class="tag">Completed</span>
+          <div class="program-grads">15<span class="lbl">Graduates</span></div>
+          <span class="apply-pill closed">Applications closed</span>
+        </div>
+      </div>
+      <div class="program-row reveal">
+        <div class="program-num">02</div>
+        <div class="program-body">
+          <div class="tagline">Coding program</div>
+          <h3>Code with Nayla</h3>
+          <p>A 6-session beginner Python course, run both online and in person, teaching students to write real code and think like programmers from day one.</p>
+        </div>
+        <div class="program-meta">
+          <span class="tag">Running now</span>
+          <div class="program-grads">60<span class="lbl">Graduates</span></div>
+          <a href="https://forms.gle/QAxVvp9V18nVXV9L6" target="_blank" rel="noopener" class="apply-pill open">Apply now →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="impact" id="impact">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Impact so far</div>
+      <h2>Small team. Real numbers.</h2>
+    </div>
+  </div>
+  <div class="wrap" style="padding:0;">
+    <div class="impact-grid">
+      <div class="impact-cell reveal">
+        <div class="num">75</div>
+        <div class="lbl">Total graduates</div>
+      </div>
+      <div class="impact-cell reveal">
+        <div class="num">2</div>
+        <div class="lbl">Programs delivered</div>
+      </div>
+      <div class="impact-cell reveal">
+        <div class="num">6</div>
+        <div class="lbl">Sessions per cohort</div>
+      </div>
+      <div class="impact-cell reveal">
+        <div class="num">1</div>
+        <div class="lbl">City. Aswan.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="forall" id="forall">
+  <div class="wrap forall-grid">
+    <div class="forall-art reveal" aria-hidden="true">
+      <svg viewBox="0 0 500 500" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <rect width="500" height="500" fill="#D9A86C"/>
+        <g stroke="#0E2A3D" stroke-width="2" opacity="0.85" fill="none">
+          <circle cx="250" cy="250" r="180"/>
+          <circle cx="250" cy="250" r="130"/>
+          <circle cx="250" cy="250" r="80"/>
+          <path d="M70 250 L430 250 M250 70 L250 430"/>
+          <path d="M130 130 L370 370 M370 130 L130 370"/>
+        </g>
+        <g fill="#0E2A3D">
+          <circle cx="250" cy="70" r="7"/>
+          <circle cx="250" cy="430" r="7"/>
+          <circle cx="70" cy="250" r="7"/>
+          <circle cx="430" cy="250" r="7"/>
+          <circle cx="130" cy="130" r="6"/>
+          <circle cx="370" cy="130" r="6"/>
+          <circle cx="130" cy="370" r="6"/>
+          <circle cx="370" cy="370" r="6"/>
+          <circle cx="250" cy="250" r="10"/>
+        </g>
+      </svg>
+    </div>
+    <div class="forall-copy reveal">
+      <h2>Built for every student in Aswan.</h2>
+      <p>Nayla started as a space for girls in STEAM — and that founding spirit still shapes how we teach. Today, Nayla is open to every student in Aswan and Upper Egypt, aged 12 to 19, who wants to learn, build, and grow.</p>
+      <p>Whoever you are, if you're curious and ready to show up, there's a seat for you in our next cohort.</p>
+      <div class="note">Nayla recently completed its rebrand: from a girls-only initiative to a STEAM program open to all students in Aswan and Upper Egypt.</div>
+    </div>
+  </div>
+</section>
+
+<section class="founders" id="founders">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">The people behind Nayla</div>
+      <h2>Founded in Aswan, by two people who live here.</h2>
+      <p>Nayla started as an idea between two friends who wanted Aswan's students to have what bigger cities take for granted.</p>
+    </div>
+    <div class="founders-grid">
+      <div class="founder-card reveal">
+        <div class="founder-photo" id="founderPhoto1">MA</div>
+        <div class="founder-info">
+          <h3>Malak Adlan</h3>
+          <span class="founder-role">Founder &amp; CEO</span>
+          <p>Replace this with a short line about you — your background, why you started Nayla, and what drives you. Two to three sentences works best.</p>
+        </div>
+      </div>
+      <div class="founder-card reveal">
+        <div class="founder-photo" id="founderPhoto2">T</div>
+        <div class="founder-info">
+          <h3>Taqwa</h3>
+          <span class="founder-role">Co-founder &amp; COO</span>
+          <p>Replace this with a short line about Taqwa — her background, her role in running Nayla day-to-day, and what she's focused on.</p>
+        </div>
+      </div>
+    </div>
+    <p class="founders-note">Photos and bios are placeholders — swap them in once you share the real ones.</p>
+  </div>
+</section>
+
+<section class="cta" id="join">
+  <div class="wrap">
+    <h2>Want to build Nayla with us?</h2>
+    <p>We're looking for volunteers in Aswan — facilitators, mentors, designers, and organizers — to help run our programs and reach more students.</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSer-YqIlG6I0FYt3WkXW_XMECKr7WW_5ZKuOiXVGw7ymscH0A/viewform" target="_blank" rel="noopener" class="btn-primary">Apply to volunteer →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">Nayla</div>
+        <p>A STEAM initiative based in Aswan, Egypt — building hands-on programs in coding, science, and problem-solving for students aged 12–19.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <a href="#programs">Programs</a>
+        <a href="#impact">Impact</a>
+        <a href="#founders">Founders</a>
+        <a href="#join">Volunteer</a>
+      </div>
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <a href="https://www.instagram.com/nayla_stemaswan/" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:hello@nayla.org" target="_blank" rel="noopener">Email us</a>
+        <a href="https://www.facebook.com/profile.php?id=61572159441253" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.linkedin.com/company/113098899/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Nayla, Aswan.</span>
+      <span>Made in Upper Egypt.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 30) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
