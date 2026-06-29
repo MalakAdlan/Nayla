@@ -511,24 +511,26 @@
     </div>
     <div class="founders-grid">
       <div class="founder-card reveal">
-        <div class="founder-photo" id="founderPhoto1">MA</div>
+        <div class="founder-photo">
+          <img src="malak.png" alt="Malak Adlan">
+        </div>
         <div class="founder-info">
           <h3>Malak Adlan</h3>
           <span class="founder-role">Founder &amp; CEO</span>
-          <p>Founder & CEO, Nayla
-Malak Adlan is the Founder and CEO of Nayla, a STEAM initiative giving young people in Aswan and Upper Egypt real access to technology and innovation. She leads Nayla's vision and programs, from coding courses to AI literacy, turning a focused idea into a growing movement for STEAM access across the region.</p>
+          <p>Malak Adlan is the Founder and CEO of Nayla, a STEAM initiative giving young people in Aswan and Upper Egypt real access to technology and innovation. She leads Nayla's vision and programs, from coding courses to AI literacy, turning a focused idea into a growing movement for STEAM access across the region.</p>
         </div>
       </div>
       <div class="founder-card reveal">
-        <div class="founder-photo" id="founderPhoto2">T</div>
+        <div class="founder-photo">
+          <img src="IMG-20260413-WA0145.jpg" alt="Taqwa Magdy">
+        </div>
         <div class="founder-info">
-          <h3>Taqwa</h3>
+          <h3>Taqwa Magdy</h3>
           <span class="founder-role">Co-founder &amp; COO</span>
           <p>Taqwa Magdy is the Co-Founder and COO of Nayla, leading the operations that bring its programs to life. With a background in programming, design, and cybersecurity, she manages the day-to-day execution that keeps Nayla running and growing across Aswan.</p>
         </div>
       </div>
     </div>
-    <p class="founders-note">Photos and bios are placeholders — swap them in once you share the real ones.</p>
   </div>
 </section>
 
